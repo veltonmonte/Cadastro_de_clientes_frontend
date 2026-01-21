@@ -1,3 +1,4 @@
+import { NavLink } from "react-router-dom";
 import "./Navbar.css";
 
 export function Navbar() {
@@ -17,23 +18,33 @@ export function Navbar() {
       <ul className="nav nav-pills flex-column mb-auto">
         {/* HOME */}
         <li className="nav-item">
-          <a href="#" className="nav-link active" aria-current="page">
+          <NavLink 
+            to="/" 
+            className={({ isActive }) => `nav-link ${isActive ? 'active' : 'link-dark'}`}
+            aria-current="page"
+          >
             Home
-          </a>
+          </NavLink>
         </li>
 
         {/* PENDENTES */}
         <li className="nav-item">
-          <a href="#" className="nav-link link-dark">
+          <NavLink 
+            to="/pendentes" 
+            className={({ isActive }) => `nav-link ${isActive ? 'active' : 'link-dark'}`}
+          >
             Pendentes
-          </a>
+          </NavLink>
         </li>
 
         {/* CONCLUÍDOS */}
         <li className="nav-item">
-          <a href="#" className="nav-link link-dark">
+          <NavLink 
+            to="/concluidos" 
+            className={({ isActive }) => `nav-link ${isActive ? 'active' : 'link-dark'}`}
+          >
             Concluídos
-          </a>
+          </NavLink>
         </li>
       </ul>
 
@@ -63,12 +74,12 @@ export function Navbar() {
           aria-labelledby="dropdownUser2"
         >
           <li>
-            <a className="dropdown-item" href="#">
+            <a className="dropdown-item" href="/">
               Perfil
             </a>
           </li>
           <li>
-            <a className="dropdown-item" href="#">
+            <a className="dropdown-item" href="/">
               Configurações
             </a>
           </li>
@@ -76,7 +87,7 @@ export function Navbar() {
             <hr className="dropdown-divider" />
           </li>
           <li>
-            <a className="dropdown-item" href="#">
+            <a className="dropdown-item" href="/">
               Sair
             </a>
           </li>
