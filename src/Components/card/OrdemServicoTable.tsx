@@ -4,14 +4,14 @@ interface CardProps {
     status: boolean,
     name: string,
     servico: string;
-    id: number;
+    id?: number;
 }
 
 
 
 export function OrdemServicoTable({ status, servico, name, id }: CardProps) {
 
-    let statusServico = "pendente"
+    let statusServico = "Pendente"
 
     if (status === true) {
         statusServico = "Concluído"
