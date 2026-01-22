@@ -39,7 +39,6 @@ export function CreateModal() {
 
     mutate(cadastroData);
     
-    // Limpar formulário após envio
     setName("");
     setServico("");
     setStatus(false);
