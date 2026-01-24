@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { OrdemServicoTable } from "../Components/card/OrdemServicoTable";
+import { OrdemServicoCard } from "../Components/card/OrdemServicoCard";
 import { CreateModal } from "../Components/Create-modal/CreateModal";
 import { useCadastroData } from "../hooks/useCadastroData";
 
-export default function Concluidos() {
+export default function Pendentes() {
   const { data } = useCadastroData();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -11,12 +11,11 @@ export default function Concluidos() {
     setIsModalOpen((prev) => !prev);
   };
 
-  const servicosConcluidos =
-    data?.filter((item) => item.status === true) || [];
+  const servicosPendentes = data?.filter((item) => item.status === false) || [];
 
   return (
     <div className="Container">
-      <h1>Serviços Concluídos</h1>
+      <h1>Serviços Pendentes ({servicosPendentes.length})</h1>
 
       <button className="btn-primary" onClick={handleOpenModal}>
         <span className="icon-button-cadastrar">+</span> Novo Serviço
@@ -24,23 +23,27 @@ export default function Concluidos() {
 
       <div className="card-container">
         <div className="card-grid">
-          {servicosConcluidos.length > 0 ? (
-            servicosConcluidos.map((item) => (
-              <OrdemServicoTable
+          {servicosPendentes.length > 0 ? (
+            servicosPendentes.map((item) => (
+              <OrdemServicoCard
                 key={item.id}
                 id={item.id}
                 status={item.status}
                 name={item.name}
                 servico={item.servico}
+                quantidade={item.quantidade}
+                modelo={item.modelo}
+                data_entrada={item.data_entrada}
               />
             ))
           ) : (
-            <p>Nenhum serviço concluído</p>
+            <p>Nenhum serviço pendente</p>
           )}
         </div>
       </div>
 
-      {isModalOpen && <CreateModal />}
+      {isModalOpen && <CreateModal closeModal={handleOpenModal} />}
+
     </div>
   );
 }

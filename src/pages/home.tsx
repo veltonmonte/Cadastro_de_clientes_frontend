@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { OrdemServicoTable } from "../Components/card/OrdemServicoTable";
+import { OrdemServicoCard } from "../Components/card/OrdemServicoCard";
 import { CreateModal } from "../Components/Create-modal/CreateModal";
 import { useCadastroData } from "../hooks/useCadastroData";
 
@@ -21,18 +21,21 @@ export default function Home() {
       <div className="card-container">
         <div className="card-grid">
           {data?.map((item) => (
-            <OrdemServicoTable
+            <OrdemServicoCard
               key={item.id}
               id={item.id}
               status={item.status}
               name={item.name}
               servico={item.servico}
+              quantidade={item.quantidade}
+              modelo={item.modelo}
+              data_entrada={item.data_entrada}
             />
           ))}
         </div>
       </div>
 
-      {isModalOpen && <CreateModal />}
+      {isModalOpen && <CreateModal closeModal={handleOpenModal} />}
     </div>
   );
 }

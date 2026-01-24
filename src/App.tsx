@@ -1,9 +1,9 @@
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Navbar } from "./Components/Navbar/Navbar";
-import Home from "./routes/home";
-import Concluidos from "./pags/concluidos";
-import Pendentes from "./pags/pendentes";
+import Home from "./pages/home";
+import Concluidos from "./pages/concluidos";
+import Pendentes from "./pages/pendentes";
 
 export default function App() {
   return (

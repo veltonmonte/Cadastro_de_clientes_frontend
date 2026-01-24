@@ -9,15 +9,13 @@ const postData = async (data: CadastroData) => {
     return response.data;
 }
 
-export function useCadastroDataMutate(){
-    const queryClient = useQueryClient();
-    const { mutate } = useMutation({
-        mutationFn: postData,
-        retry: 2,
-        onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ['cadastro-data'] });
-        }
-    })
+export function useCadastroDataMutate() {
+  const queryClient = useQueryClient();
 
-    return { mutate }
+  return useMutation({
+    mutationFn: postData,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['cadastro-data'] });
+    }
+  });
 }

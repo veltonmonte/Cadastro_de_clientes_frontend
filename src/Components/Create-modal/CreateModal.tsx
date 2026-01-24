@@ -1,5 +1,5 @@
 import "./CreateModal.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useCadastroDataMutate } from "../../hooks/useCadastroMutate";
 import type { CadastroData } from "../../interface/CadastroData";
 
@@ -7,6 +7,10 @@ interface InputProps {
   label: string;
   value: string;
   updateValue(value: string): void;
+}
+
+interface ModalProps{
+  closeModal(): void;
 }
 
 const Input = ({ label, value, updateValue }: InputProps) => {
@@ -21,12 +25,22 @@ const Input = ({ label, value, updateValue }: InputProps) => {
   );
 };
 
-export function CreateModal() {
-  const [name, setName] = useState("");
+export function CreateModal({closeModal}: ModalProps) {
+ const [name, setName] = useState("");
   const [servico, setServico] = useState("");
   const [status, setStatus] = useState(false);
+  const [modelo, setModelo] = useState("");
+  const [quantidade, setQuantidade] = useState(0);
+  const[data_entrada, setDataEntrada] = useState("");
 
-  const { mutate } = useCadastroDataMutate();
+  const {mutate, isSuccess} = useCadastroDataMutate();
+
+  useEffect(() => {
+    if (isSuccess) {
+      closeModal();
+    }
+  }, [isSuccess, closeModal]);
+
 
   const submitForm = (e: React.FormEvent) => {
     e.preventDefault();
@@ -35,23 +49,29 @@ export function CreateModal() {
       name,
       servico,
       status,
+      quantidade,
+      modelo,
+      data_entrada,
     };
+    
 
     mutate(cadastroData);
     
-    setName("");
-    setServico("");
-    setStatus(false);
   }
+
+
 
   return (
     <div className="modal-overflow">
       <div className="modal-body">
         <h2>Cadastre um novo cliente</h2>
 
-        <form className="input-container" onSubmit={submitForm}>
+        <form className="input-container">
           <Input label="Nome" value={name} updateValue={setName} />
           <Input label="Serviço" value={servico} updateValue={setServico} />
+          <Input label="Modelo" value={modelo} updateValue={setModelo} />
+          <Input label="Quantidade" value={quantidade.toString()} updateValue={(val) => setQuantidade(Number(val))} />
+          <Input label="Data de Entrada" value={data_entrada} updateValue={setDataEntrada} />
 
           <label>
             <input
@@ -62,7 +82,7 @@ export function CreateModal() {
             Concluído
           </label>
 
-          <button onClick={submitForm} className="btn-secundario">Cadastrar</button>
+          <button onClick={submitForm}  className="btn-secundario">Cadastrar</button>
         </form>
       </div> 
     </div>
