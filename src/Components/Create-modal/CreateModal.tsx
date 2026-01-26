@@ -64,6 +64,7 @@ export function CreateModal({closeModal}: ModalProps) {
   return (
     <div className="modal-overflow">
       <div className="modal-body">
+        <img src="./public/cruz.png" alt="" className="button_close" onClick={closeModal}/>
         <h2>Cadastre um novo cliente</h2>
 
         <form className="input-container">

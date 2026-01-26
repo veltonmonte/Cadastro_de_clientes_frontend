@@ -15,7 +15,7 @@ export default function Home() {
     <div className="Container">
       <h1>Todos os Serviços</h1>
       <button className="btn-primary" onClick={handleOpenModal}>
-        <span className="icon-button-cadastrar">+</span> Novo Serviço
+        <span className="icon-button-cadastrar"><img src="./public/adicionar.png" alt="" /></span> Novo Serviço
       </button>
 
       <div className="card-container">

@@ -5,7 +5,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 const API_URL = "http://localhost:8080";
 
 const postData = async (data: CadastroData) => {
-    const response = await axios.post(API_URL + '/Cadastros', data);
+    const response = await axios.post(API_URL + '/Cadastro', data);
     return response.data;
 }
 

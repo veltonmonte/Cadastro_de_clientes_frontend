@@ -24,6 +24,19 @@
   color: #111;
 }
 
+.button_close {
+  width: 24px;
+  height: 24px;
+  margin-left: 95%;
+  border: none;
+  transition: transform 0.5s ease;
+}
+
+.button_close:hover {
+  transform: scale(1.2);
+   cursor: pointer;
+}
+
 /* Form */
 .input-container {
   display: flex;
