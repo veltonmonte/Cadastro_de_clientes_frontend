@@ -1,11 +1,9 @@
-import axios from "axios"
-import type { CadastroData } from "../interface/CadastroData";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-
-const API_URL = "http://localhost:8080";
+import { api } from "../services/api"; // <- usa o interceptor
+import type { CadastroData } from "../interface/CadastroData";
 
 const postData = async (data: CadastroData) => {
-    const response = await axios.post(API_URL + '/cadastros', data);
+    const response = await api.post('/cadastros', data); // ✅ token vai no header
     return response.data;
 }
 

@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import axios from "axios";
+import { api } from "../services/api"; // <- usa o token automaticamente
 
 interface UpdateStatusProps {
   id?: number;
@@ -11,18 +11,17 @@ export function useCadastroUpdate() {
 
   return useMutation({
     mutationFn: async ({ id, status }: UpdateStatusProps) => {
-      if (!id) return;
+      if (!id) throw new Error("ID do cadastro é obrigatório");
 
-      return axios.patch(
-        `http://localhost:8080/cadastros/${id}/status`,
-        {
-          status: status, 
-        }
-      );
+      const response = await api.patch(`/cadastros/${id}/status`, {
+        status: status,
+      });
+
+      return response.data;
     },
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ["cadastros"],
+        queryKey: ["cadastro-data"], // mesma query usada no useCadastroData
       });
     },
   });

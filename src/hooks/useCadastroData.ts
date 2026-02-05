@@ -1,23 +1,21 @@
-import axios, { type AxiosPromise } from "axios"
-import type { CadastroData } from "../interface/CadastroData";
+import { type AxiosPromise } from "axios";
 import { useQuery } from "@tanstack/react-query";
-
-const API_URL = "http://localhost:8080";
+import type { CadastroData } from "../interface/CadastroData";
+import { api } from "../services/api"; // 👈 IMPORTANTE
 
 const fetchData = async (): AxiosPromise<CadastroData[]> => {
-    const response = axios.get(API_URL+'/cadastros');
-    return response;
-}
+  return api.get("/cadastros"); // 👈 USA O AXIOS COM TOKEN
+};
 
-export function useCadastroData(){
-    const query = useQuery({
-        queryFn: fetchData,
-        queryKey: ['cadastro-data'],
-        retry: 2
-    })
+export function useCadastroData() {
+  const query = useQuery({
+    queryKey: ["cadastro-data"],
+    queryFn: fetchData,
+    retry: 2,
+  });
 
-    return{
-        ...query,
-        data: query.data?.data
-    }
+  return {
+    ...query,
+    data: query.data?.data,
+  };
 }

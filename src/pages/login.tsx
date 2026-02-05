@@ -2,14 +2,20 @@ import { useState } from "react";
 import "../App.css"
 import { loginPost } from "../services/auth.ts"
 import "../interface/LoginData.ts"
+import { useNavigate } from "react-router";
 
 export function Login() {
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   const handleLogin = async () => {
   try {
-    await loginPost(login, password);
+    const tolken =  await loginPost(login, password);
+
+    localStorage.setItem("token", tolken.data.token);
+
+    navigate("/home");
 
   } catch (error) {
     console.error("Erro no login:", error);

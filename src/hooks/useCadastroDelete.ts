@@ -1,14 +1,11 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import axios from "axios";
-
-const API_URL = "http://localhost:8080";
+import { api } from "../services/api"; // <- usa o interceptor
 
 export function useCadastroDelete() {
   const queryClient = useQueryClient();
 
   const mutation = useMutation({
-    mutationFn: (id: number) =>
-      axios.delete(`${API_URL}/cadastros/${id}`),
+    mutationFn: (id: number) => api.delete(`/cadastros/${id}`),
 
     onSuccess: () => {
       queryClient.invalidateQueries({
