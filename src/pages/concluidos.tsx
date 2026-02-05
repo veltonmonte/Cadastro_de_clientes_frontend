@@ -2,20 +2,33 @@ import { useState } from "react";
 import { OrdemServicoCard } from "../Components/card/OrdemServicoCard";
 import { CreateModal } from "../Components/Create-modal/CreateModal";
 import { useCadastroData } from "../hooks/useCadastroData";
+import { Searchbar } from "../Components/SearchBar/Searchbar";
 
 export default function Concluidos() {
   const { data } = useCadastroData();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [search, setSearch] = useState("");
 
   const handleOpenModal = () => {
     setIsModalOpen((prev) => !prev);
   };
 
-  const servicosConcluidos = data?.filter((item) => item.status === true) || [];
+  const servicosConcluidos =
+    data?.filter(
+      (item) =>
+        item.status === true &&
+        (
+          item.name.toLowerCase().includes(search.toLowerCase()) ||
+          item.servico.toLowerCase().includes(search.toLowerCase()) ||
+          item.modelo.toLowerCase().includes(search.toLowerCase())
+        )
+    ) || [];
 
   return (
     <div className="Container">
       <h1>Serviços Concluídos</h1>
+
+      <Searchbar value={search} onChange={setSearch} />
 
       <button className="btn-primary" onClick={handleOpenModal}>
         <span className="icon-button-cadastrar">+</span> Novo Serviço
@@ -43,7 +56,6 @@ export default function Concluidos() {
       </div>
 
       {isModalOpen && <CreateModal closeModal={handleOpenModal} />}
-
     </div>
   );
 }

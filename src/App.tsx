@@ -4,6 +4,7 @@ import { Navbar } from "./Components/Navbar/Navbar";
 import Home from "./pages/home";
 import Concluidos from "./pages/concluidos";
 import Pendentes from "./pages/pendentes";
+import { Login as Login } from "./pages/login";
 
 export default function App() {
   return (
@@ -14,7 +15,8 @@ export default function App() {
         </nav>
         <main className="navbar-content">
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<Login />} />
+            <Route path="/home" element={<Home />} />
             <Route path="/pendentes" element={<Pendentes />} />
             <Route path="/concluidos" element={<Concluidos />} />
           </Routes>

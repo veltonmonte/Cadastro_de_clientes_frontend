@@ -5,7 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 const API_URL = "http://localhost:8080";
 
 const fetchData = async (): AxiosPromise<CadastroData[]> => {
-    const response = axios.get(API_URL+'/Cadastro');
+    const response = axios.get(API_URL+'/cadastros');
     return response;
 }
 

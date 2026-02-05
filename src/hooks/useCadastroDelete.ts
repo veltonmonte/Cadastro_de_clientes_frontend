@@ -8,7 +8,7 @@ export function useCadastroDelete() {
 
   const mutation = useMutation({
     mutationFn: (id: number) =>
-      axios.delete(`${API_URL}/Cadastro/${id}`),
+      axios.delete(`${API_URL}/cadastros/${id}`),
 
     onSuccess: () => {
       queryClient.invalidateQueries({

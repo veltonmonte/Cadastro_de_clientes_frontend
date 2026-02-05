@@ -1,28 +1,33 @@
+/* OVERLAY */
 .modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.55);
+  background: rgba(15, 23, 42, 0.55); /* slate-900 */
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 999;
-  backdrop-filter: blur(2px);
+  backdrop-filter: blur(4px);
 }
 
+/* MODAL */
 .modal-body {
   background: #ffffff;
-  border-radius: 12px;
-  width: 420px;
-  max-width: 90%;
-  padding: 24px 26px;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+  border-radius: 16px;
+  width: 460px;
+  max-width: 92%;
+  padding: 26px 28px;
+  box-shadow:
+    0 25px 50px rgba(0, 0, 0, 0.25),
+    0 10px 20px rgba(0, 0, 0, 0.08);
   animation: modalFade 0.25s ease-out;
 }
 
+/* ANIMAÇÃO */
 @keyframes modalFade {
   from {
     opacity: 0;
-    transform: translateY(15px) scale(0.97);
+    transform: translateY(20px) scale(0.96);
   }
   to {
     opacity: 1;
@@ -30,34 +35,48 @@
   }
 }
 
+/* TÍTULO */
 .modal-body h2 {
-  margin-bottom: 18px;
-  font-size: 1.4rem;
+  margin-bottom: 20px;
+  font-size: 1.35rem;
   font-weight: 600;
-  color: #222;
+  color: #0f172a; /* slate-900 */
   text-align: center;
 }
 
+/* CONTEÚDO */
 .modal-content {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-bottom: 22px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px 16px;
+  margin-bottom: 26px;
 }
 
 .modal-content p {
-  font-size: 0.95rem;
-  color: #444;
+  font-size: 0.9rem;
+  color: #475569; /* slate-600 */
 }
 
 .modal-content strong {
-  color: #111;
+  display: block;
+  font-size: 0.75rem;
+  color: #64748b; /* slate-500 */
+  margin-bottom: 2px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* Campos grandes ocupam linha inteira */
+.modal-content p.full {
+  grid-column: span 2;
 }
 
 /* STATUS */
 .status {
-  display: inline-block;
-  padding: 4px 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
   border-radius: 999px;
   font-size: 0.75rem;
   font-weight: 600;
@@ -74,36 +93,57 @@
   color: #92400e;
 }
 
-/* BOTÕES */
+/* AÇÕES */
 .modal-actions {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
+  align-items: center;
   gap: 10px;
+  border-top: 1px solid #e5e7eb;
+  padding-top: 16px;
 }
 
+/* BOTÕES */
 .btn-secondary {
-  background: #e5e7eb;
+  background: #f1f5f9;
   border: none;
-  padding: 8px 14px;
-  border-radius: 6px;
+  padding: 8px 16px;
+  border-radius: 8px;
   cursor: pointer;
   font-size: 0.85rem;
+  color: #334155;
+  transition: background 0.2s ease;
 }
 
 .btn-secondary:hover {
-  background: #d1d5db;
+  background: #e2e8f0;
 }
 
 .btn-delete {
   background: #dc2626;
   color: #fff;
   border: none;
-  padding: 8px 14px;
-  border-radius: 6px;
+  padding: 8px 16px;
+  border-radius: 8px;
   cursor: pointer;
   font-size: 0.85rem;
+  transition: background 0.2s ease, transform 0.15s ease;
 }
 
 .btn-delete:hover {
   background: #b91c1c;
+  transform: translateY(-1px);
+}
+
+.button_close {
+  width: 24px;
+  height: 24px;
+  margin-left: 95%;
+  border: none;
+  transition: transform 0.5s ease;
+}
+
+.button_close:hover {
+  transform: scale(1.2);
+  cursor: pointer;
 }

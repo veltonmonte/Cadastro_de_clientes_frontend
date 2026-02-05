@@ -74,14 +74,16 @@ export function CreateModal({closeModal}: ModalProps) {
           <Input label="Quantidade" value={quantidade.toString()} updateValue={(val) => setQuantidade(Number(val))} />
           <Input label="Data de Entrada" value={data_entrada} updateValue={setDataEntrada} />
 
-          <label>
-            <input
-              type="checkbox"
-              checked={status}
-              onChange={(e) => setStatus(e.target.checked)}
-            />
-            Concluído
-          </label>
+          <label className="checkbox">
+  <input
+    type="checkbox"
+    checked={status}
+    onChange={(e) => setStatus(e.target.checked)}
+  />
+  <span className="checkmark"></span>
+  Concluído
+</label>
+
 
           <button onClick={submitForm}  className="btn-secundario">Cadastrar</button>
         </form>

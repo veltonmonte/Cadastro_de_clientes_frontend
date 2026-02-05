@@ -1,5 +1,6 @@
 import "./CreateModalOs.css";
 import { useCadastroDelete } from "../../hooks/useCadastroDelete";
+import { useCadastroUpdate } from "../../hooks/useUpdateData";
 
 interface ModalProps {
   closeModal(): void;
@@ -14,62 +15,77 @@ interface ModalProps {
 
 export function CreateModalOs({
   closeModal,
+  id,
   name,
   servico,
   status,
-  id,
   quantidade,
   modelo,
-  data_entrada
+  data_entrada,
 }: ModalProps) {
-  const statusServico = status ? "Concluído" : "Pendente";
   const { deleteCadastro } = useCadastroDelete();
+ const { mutate, isPending } = useCadastroUpdate();
+
+
+  const statusLabel = status ? "Concluído" : "Pendente";
+
+  const handleToggleStatus = () => {
+    if (!id) return;
+
+    mutate(
+      { id, status: !status },
+      {
+        onSuccess: () => {
+          closeModal();
+        },
+      }
+    );
+  };
+
+  const handleDelete = () => {
+    if (!id) return;
+
+    if (confirm("Tem certeza que deseja excluir esta OS?")) {
+      deleteCadastro(id);
+      closeModal();
+    }
+  };
 
   return (
     <div className="modal-overlay" onClick={closeModal}>
       <div className="modal-body" onClick={(e) => e.stopPropagation()}>
+        <img
+          src="./public/cruz.png"
+          alt="Fechar"
+          className="button_close"
+          onClick={closeModal}
+        />
+
         <h2>Detalhes da Ordem de Serviço</h2>
 
         <div className="modal-content">
-          <p>
-            <strong>Cliente:</strong> {name}
-          </p>
-          <p>
-            <strong>Serviço:</strong> {servico}
-          </p>
-          <p>
-            <strong>Status:</strong> {statusServico}
-          </p>
-          <p>
-            <strong>OS:</strong> #{id}
-          </p>
-          <p>
-            <strong>Modelo:</strong> {modelo}
-          </p>
-          <p>
-            <strong>Quantidade:</strong> {quantidade}
-          </p>
-          <p>
-            <strong>Data de Entrada:</strong> {data_entrada}
-          </p>
+          <p><strong>Cliente:</strong> {name}</p>
+          <p><strong>Serviço:</strong> {servico}</p>
+          <p><strong>Status:</strong> {statusLabel}</p>
+          <p><strong>OS:</strong> #{id}</p>
+          <p><strong>Modelo:</strong> {modelo}</p>
+          <p><strong>Quantidade:</strong> {quantidade}</p>
+          <p><strong>Data de Entrada:</strong> {data_entrada}</p>
         </div>
 
-        <button className="btn-secondary" onClick={closeModal}>
-          Fechar
-        </button>
-        <button
-          className="btn-delete"
-          onClick={() => {
-            if (!id) return;
+        <div className="modal-actions">
+          <button
+            className="btn-primary"
+            onClick={handleToggleStatus}
+            disabled={isPending}
+          >
+            {status ? "Marcar como Pendente" : "Marcar como Concluído"}
+          </button>
 
-            if (confirm("Tem certeza que deseja excluir esta OS?")) {
-              deleteCadastro(id);
-              closeModal();
-            }
-          }}
-        >
-          Excluir
-        </button>
+          <button className="btn-delete" onClick={handleDelete}>
+            Excluir
+          </button>
+        </div>
       </div>
     </div>
   );
